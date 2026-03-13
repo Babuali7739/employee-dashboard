@@ -16,7 +16,7 @@ const Login = () => {
     const success = login(username, password);
 
     if (success) {
-      navigate("/list");
+      navigate("/Home");
     } else {
       alert("Invalid credentials");
     }

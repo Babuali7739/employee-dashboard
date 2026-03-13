@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import VirtualGrid from "../component/VirtualGrid"
 
 function List() {
 
   const [employees, setEmployees] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -30,41 +33,35 @@ function List() {
   }, [])
 
   return (
-    <div style={{ padding: "20px" }}>
 
-      <h1 style={{ marginBottom: "20px" }}>Employee List</h1>
+    <div className="p-6">
 
-      <table border="1" cellPadding="10" cellSpacing="0" width="100%">
+      <h1 className="text-2xl font-bold mb-4">
+        Employee List
+      </h1>
 
-        <thead style={{ background: "#f2f2f2" }}>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>City</th>
-            <th>Department</th>
-            <th>Salary</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+      {/* Table Header */}
 
-        <tbody>
+      <div className="grid grid-cols-6 font-bold border p-2 bg-gray-100">
 
-          {employees.map((emp, index) => (
-            <tr key={index}>
-              <td>{emp[0]}</td>
-              <td>{emp[1]}</td>
-              <td>{emp[2]}</td>
-              <td>{emp[3]}</td>
-              <td>{emp[4]}</td>
-              <td>{emp[5]}</td>
-            </tr>
-          ))}
+        <span>Name</span>
+        <span>Department</span>
+        <span>City</span>
+        <span>ID</span>
+        <span>Date</span>
+        <span>Salary</span>
 
-        </tbody>
+      </div>
 
-      </table>
+      {/* Virtualized Grid */}
+
+      <VirtualGrid
+        data={employees}
+        onRowClick={(emp) => navigate(`/details/${emp[3]}`)}
+      />
 
     </div>
+
   )
 }
 
