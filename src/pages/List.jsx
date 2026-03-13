@@ -16,38 +16,53 @@ function List() {
         password: "123456"
       })
     })
-    .then(res => res.json())
-    .then(data => {
+      .then(res => res.json())
+      .then(data => {
 
-      console.log("API Response:", data)
+        console.log("API Response:", data)
 
-      // ✅ correct extraction
-      const tableData = data?.TABLE_DATA?.data || []
+        const tableData = data?.TABLE_DATA?.data || []
 
-      setEmployees(tableData)
+        setEmployees(tableData)
 
-    })
+      })
 
   }, [])
 
   return (
-    <div className="p-5">
+    <div style={{ padding: "20px" }}>
 
-      <h1 className="text-xl mb-4">Employee List</h1>
+      <h1 style={{ marginBottom: "20px" }}>Employee List</h1>
 
-      {employees.map((emp, index) => (
+      <table border="1" cellPadding="10" cellSpacing="0" width="100%">
 
-        <div key={index} className="border p-2 mb-2">
+        <thead style={{ background: "#f2f2f2" }}>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Status</th>
+          </tr>
+        </thead>
 
-          ID: {emp[0]} |
-          Name: {emp[1]} |
-          City: {emp[2]} |
-          Department: {emp[3]} |
-          Salary: {emp[4]}
+        <tbody>
 
-        </div>
+          {employees.map((emp, index) => (
+            <tr key={index}>
+              <td>{emp[0]}</td>
+              <td>{emp[1]}</td>
+              <td>{emp[2]}</td>
+              <td>{emp[3]}</td>
+              <td>{emp[4]}</td>
+              <td>{emp[5]}</td>
+            </tr>
+          ))}
 
-      ))}
+        </tbody>
+
+      </table>
 
     </div>
   )
