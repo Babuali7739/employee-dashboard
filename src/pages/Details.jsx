@@ -50,27 +50,32 @@ function Details() {
   // Restore signature
   useEffect(() => {
 
+  const savedSignature = localStorage.getItem(`employeeSignature_${id}`);
+  if (!savedSignature) return;
+
+  const interval = setInterval(() => {
+
     const canvas = signCanvasRef.current;
+
     if (!canvas) return;
 
-    const savedSignature = localStorage.getItem(`employeeSignature_${id}`);
+    const ctx = canvas.getContext("2d");
 
-    if (savedSignature) {
+    const img = new Image();
+    img.src = savedSignature;
 
-      const ctx = canvas.getContext("2d");
+    img.onload = () => {
 
-      const img = new Image();
-      img.src = savedSignature;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      img.onload = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
-      };
+    };
 
-    }
+    clearInterval(interval);
 
-  }, [id]);
+  }, 100);
 
+}, [id]);
   // Capture Photo
   const capturePhoto = () => {
 

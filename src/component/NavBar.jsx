@@ -9,6 +9,12 @@ function NavBar() {
       </h1>
 
       <div className="space-x-6">
+        <Link
+            to= "/Home"
+            className="hover:text-gray-300"
+        >
+            Home
+        </Link>
 
         <Link
           to="/list"
