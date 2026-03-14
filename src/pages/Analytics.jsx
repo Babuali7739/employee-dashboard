@@ -44,7 +44,7 @@ function Analytics() {
 
       })
 
-  }, [])
+  }, [employees])
 
   const cityCoords = {
     Delhi: [28.6139, 77.2090],
