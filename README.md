@@ -1,185 +1,268 @@
-Employee Dashboard (Frontend Internship Assignment)
+# Employee Dashboard (Frontend Internship Assignment)
 
-A React-based Employee Dashboard that allows users to view employee data, capture profile photos, add signatures, analyze salary data, and visualize employee locations on a map.
+A **React-based Employee Dashboard** that allows users to view employee
+data, capture profile photos, add signatures, analyze salary data, and
+visualize employee locations on a map.
 
-The project demonstrates modern frontend techniques including virtualization, canvas manipulation, chart rendering, and route-based state management.
+This project demonstrates **modern frontend development techniques**
+such as virtualization, canvas manipulation, chart rendering, and
+route-based state management.
 
-Features
-Authentication
+------------------------------------------------------------------------
 
-Simple login system using React Context
+# Project Features
 
-Protected routes for dashboard pages
+## 1. Authentication
 
-Redirects unauthorized users to login
+-   Simple login system implemented using **React Context**
+-   **Protected routes** for dashboard pages
+-   Redirects **unauthorized users to login page**
 
-Employee List
+------------------------------------------------------------------------
 
-Displays employees fetched from API
+## 2. Employee List
 
-Clickable rows redirect to employee profile
+-   Displays employees fetched from an API
+-   **Clickable rows** redirect to employee profile
+-   Uses **virtualized grid rendering** for better performance
 
-Virtualized grid rendering for performance
+------------------------------------------------------------------------
 
-Employee Profile
+## 3. Employee Profile
 
-Displays employee information
+-   Displays detailed employee information
+-   Capture employee **photo using webcam**
+-   Draw **signature using Canvas API**
+-   Save photo and signature in **localStorage**
+-   Merge photo and signature into a **single verification image**
 
-Capture employee photo using webcam
+------------------------------------------------------------------------
 
-Draw signature using canvas
+## 4. Analytics
 
-Save photo and signature in localStorage
+-   Salary distribution **chart by city**
+-   Employee location visualization using **Leaflet Map**
+-   Display merged **verification images**
 
-Merge photo and signature into a single image
+------------------------------------------------------------------------
 
-Analytics
+## 5. Performance Optimization
 
-Salary distribution chart by city
+A custom **VirtualGrid implementation** renders only the visible rows
+instead of the entire dataset.
 
-Employee location visualization using Leaflet map
+Benefits: - Faster rendering - Improved scrolling performance - Reduced
+memory usage
 
-Display merged verification images
+------------------------------------------------------------------------
 
-Performance Optimization
+# Tech Stack
 
-Custom VirtualGrid implementation to render only visible rows
+  Technology     Usage
+  -------------- --------------------------------
+  React          Frontend framework
+  React Router   Page navigation
+  Tailwind CSS   UI styling
+  Canvas API     Signature and image processing
+  Leaflet        Map visualization
+  LocalStorage   Client-side persistence
 
-Tech Stack:-
-Technology ---- Usage React	Frontend framework
-React Router --- Page navigation
-Tailwind CSS --- UI styling
-Canvas API --- Signature & image processing
-Leaflet	Map --- visualization
-LocalStorage --- Client-side persistence
-Installation
-1 Clone the repository - git clone <repository_url>
-2 Navigate to project - cd employee-dashboard
-3 Install dependencies - npm install
-4 Start development server - npm run dev
+------------------------------------------------------------------------
 
-Application will run at: http://localhost:5173
+# Installation
 
-Project Structure
-src
- ├── components
- │    ├── NavBar.jsx
- │    ├── SalaryChart.jsx
- │    ├── VirtualGrid.jsx
- │
- ├── context
- │    └── AuthContext.jsx
- │
- ├── pages
- │    ├── Login.jsx
- │    ├── Home.jsx
- │    ├── List.jsx
- │    ├── Details.jsx
- │    ├── Analytics.jsx
- │
- └── App.jsx
-Virtualization Math Explanation
+### 1. Clone the repository
 
-Rendering a large dataset directly can cause performance issues.
-To optimize rendering, the application implements a virtualized list.
+``` bash
+git clone <repository_url>
+```
 
-Instead of rendering all rows, only the rows visible in the viewport are rendered.
+### 2. Navigate to the project directory
 
-Key Variables
-ROW_HEIGHT ---	Height of each row
-containerHeight ---	Height of scroll container
-scrollTop ---	Current scroll position
-visibleCount ---	Number of rows visible
-startIndex ---	First row index rendered
-endIndex ---	Last row index rendered
-offsetY ---	Vertical offset for rendering
+``` bash
+cd employee-dashboard
+```
 
-Step 1 Calculate Visible Rows
-visibleCount = containerHeight / ROW_HEIGHT
+### 3. Install dependencies
+
+``` bash
+npm install
+```
+
+### 4. Start the development server
+
+``` bash
+npm run dev
+```
+
+Application will run at:
+
+    http://localhost:5173
+
+------------------------------------------------------------------------
+
+# Project Structure
+
+    src
+    │
+    ├── components
+    │   ├── NavBar.jsx
+    │   ├── SalaryChart.jsx
+    │   ├── VirtualGrid.jsx
+    │   └── context
+    │       └── AuthContext.jsx
+    │
+    ├── pages
+    │   ├── Login.jsx
+    │   ├── Home.jsx
+    │   ├── List.jsx
+    │   ├── Details.jsx
+    │   └── Analytics.jsx
+    │
+    └── App.jsx
+
+------------------------------------------------------------------------
+
+# Virtualization Math Explanation
+
+Rendering a large dataset directly can cause **serious performance
+issues**. To solve this, the application implements a **virtualized
+list**.
+
+Instead of rendering **all rows**, only the rows visible in the viewport
+are rendered.
+
+------------------------------------------------------------------------
+
+## Key Variables
+
+  Variable          Description
+  ----------------- --------------------------------------
+  ROW_HEIGHT        Height of each row
+  containerHeight   Height of the scroll container
+  scrollTop         Current scroll position
+  visibleCount      Number of visible rows
+  startIndex        First row index rendered
+  endIndex          Last row index rendered
+  offsetY           Vertical offset used for positioning
+
+------------------------------------------------------------------------
+
+## Step 1 --- Calculate Visible Rows
+
+    visibleCount = containerHeight / ROW_HEIGHT
 
 Example:
 
-visibleCount = 500 / 50
-visibleCount = 10 rows
-Step 2 Determine Starting Row
-startIndex = scrollTop / ROW_HEIGHT
+    visibleCount = 500 / 50
+    visibleCount = 10 rows
+
+------------------------------------------------------------------------
+
+## Step 2 --- Determine Starting Row
+
+    startIndex = scrollTop / ROW_HEIGHT
 
 Example:
 
-scrollTop = 250
-ROW_HEIGHT = 50
+    scrollTop = 250
+    ROW_HEIGHT = 50
 
-startIndex = 5
-Step 3 Determine Ending Row
-endIndex = startIndex + visibleCount + buffer
+    startIndex = 5
 
-Example:
+------------------------------------------------------------------------
 
-endIndex = 5 + 10 + 5
-endIndex = 20
-Step 4 Slice Visible Data
-visibleData = data.slice(startIndex, endIndex)
-Step 5 Calculate Offset
-offsetY = startIndex * ROW_HEIGHT
+## Step 3 --- Determine Ending Row
+
+    endIndex = startIndex + visibleCount + buffer
 
 Example:
 
-offsetY = 5 * 50
-offsetY = 250px
+    endIndex = 5 + 10 + 5
+    endIndex = 20
+
+------------------------------------------------------------------------
+
+## Step 4 --- Slice Visible Data
+
+    visibleData = data.slice(startIndex, endIndex)
+
+------------------------------------------------------------------------
+
+## Step 5 --- Calculate Offset
+
+    offsetY = startIndex * ROW_HEIGHT
+
+Example:
+
+    offsetY = 5 * 50
+    offsetY = 250px
 
 Applied using:
 
-transform: translateY(offsetY)
-Result
+    transform: translateY(offsetY)
 
-Instead of rendering thousands of DOM nodes, only the visible rows are rendered.
+------------------------------------------------------------------------
 
-Dataset	Rendered Rows
-10,000 rows	~15 rows
+## Result
 
-This improves:
+Instead of rendering thousands of DOM nodes, only the visible rows are
+rendered.
 
-Scroll performance
+  Dataset Size   Rendered Rows
+  -------------- ---------------
+  10,000 rows    \~15 rows
 
-Rendering speed
+### Performance Improvements
 
-Memory usage
+-   Smooth scrolling
+-   Faster rendering
+-   Lower memory usage
 
-Intentional Vulnerability
+------------------------------------------------------------------------
 
-This project intentionally includes one performance vulnerability as required by the assignment.
+# Intentional Vulnerability (Assignment Requirement)
 
-Location
+This project intentionally includes **one performance vulnerability** to
+demonstrate a realistic frontend issue.
 
-Analytics.jsx
+## Location
 
-Description
+    Analytics.jsx
 
-The useEffect hook responsible for fetching employee data includes employees in its dependency array.
+## Problematic Code
 
-Example:
-
+``` javascript
 useEffect(() => {
- fetchEmployees()
+  fetchEmployees()
 }, [employees])
-Issue
+```
 
-This creates a re-render loop because:
+------------------------------------------------------------------------
 
-API fetch updates employees
+## Issue Explanation
 
-employees state change triggers useEffect
+The `useEffect` hook depends on `employees`.
 
-useEffect fetches data again
+1.  API fetch updates `employees`
+2.  `employees` state changes
+3.  `useEffect` runs again
+4.  API fetch runs again
 
-Impact
+This creates a **re-render loop**.
 
-Repeated API calls
+------------------------------------------------------------------------
 
-Unnecessary re-renders
+## Impact
 
-Performance degradation
+-   Repeated API calls
+-   Unnecessary re-renders
+-   Performance degradation
 
-Purpose
+------------------------------------------------------------------------
 
-This bug was intentionally added to satisfy the assignment requirement of demonstrating a realistic frontend performance issue.
+## Purpose
+
+This bug was **intentionally added** to satisfy the assignment
+requirement of demonstrating a **real-world frontend performance
+issue**.
